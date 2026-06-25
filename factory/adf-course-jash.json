@@ -1,0 +1,15 @@
+{
+	"name": "adf-course-jash",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "dd018e09-b4d3-4ec8-abae-d2dcfb8a047c",
+		"tenantId": "c59750a4-aa39-412e-9762-047593de1d7e"
+	}
+}
