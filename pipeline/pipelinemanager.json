@@ -49,7 +49,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "source_csv",
+						"referenceName": "dataflow_source",
 						"type": "DatasetReference"
 					}
 				],
