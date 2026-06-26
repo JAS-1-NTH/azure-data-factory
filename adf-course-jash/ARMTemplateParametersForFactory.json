@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-course-jash"
+		},
+		"linkedserviceDL_accountKey": {
+			"value": ""
+		},
+		"linked_git_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"linkedserviceDL_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryjash.dfs.core.windows.net/"
+		},
+		"ManTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/a2688eea-3379-4c1a-a78c-d522a44487ef/resourceGroups/Jaswanth/providers/Microsoft.Storage/storageAccounts/storagedatafactoryjash"
+		},
+		"managerTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/a2688eea-3379-4c1a-a78c-d522a44487ef/resourceGroups/Jaswanth/providers/Microsoft.Storage/storageAccounts/storagedatafactoryjash"
+		}
+	}
+}
