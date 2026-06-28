@@ -12,7 +12,7 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "pipeline2",
+					"referenceName": "prodpipeline",
 					"type": "PipelineReference"
 				}
 			}
