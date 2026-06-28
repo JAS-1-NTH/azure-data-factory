@@ -63,9 +63,6 @@
 					"linkedserviceDL_properties_typeProperties_url": {
 						"value": "[parameters('linkedserviceDL_properties_typeProperties_url')]"
 					},
-					"ManTrigger_properties_typeProperties_scope": {
-						"value": "[parameters('ManTrigger_properties_typeProperties_scope')]"
-					},
 					"managerTrigger_properties_typeProperties_scope": {
 						"value": "[parameters('managerTrigger_properties_typeProperties_scope')]"
 					}
@@ -86,6 +83,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ManTrigger_properties_typeProperties_scope": {
+						"value": "[parameters('ManTrigger_properties_typeProperties_scope')]"
 					}
 				}
 			},

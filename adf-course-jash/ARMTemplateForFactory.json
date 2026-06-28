@@ -528,6 +528,64 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/prodpipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Executeonpipelinemanager",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pipelinemanager",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Executeononlyselectedfiles",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Executeonpipelinemanager",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "onlySelectedFiles",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipelinemanager')]",
+				"[concat(variables('factoryId'), '/pipelines/onlySelectedFiles')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/varPipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -943,7 +1001,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "pipelinemanager",
+							"referenceName": "prodpipeline",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -960,7 +1018,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipelinemanager')]"
+				"[concat(variables('factoryId'), '/pipelines/prodpipeline')]"
 			]
 		},
 		{
@@ -969,16 +1027,8 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pipelinemanager",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
+				"runtimeState": "Stopped",
+				"pipelines": [],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
@@ -989,9 +1039,7 @@
 					]
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipelinemanager')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/selectedFilesTrigger')]",
@@ -999,30 +1047,20 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "onlySelectedFiles",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
+				"runtimeState": "Stopped",
+				"pipelines": [],
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
 						"frequency": "Minute",
 						"interval": 15,
 						"startTime": "2026-06-25T12:07:00",
-						"endTime": "2026-06-25T12:10:00",
+						"endTime": "2026-06-29T12:10:00",
 						"timeZone": "India Standard Time"
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/onlySelectedFiles')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/TransformCSV')]",

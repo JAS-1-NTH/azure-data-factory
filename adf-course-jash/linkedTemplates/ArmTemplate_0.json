@@ -19,10 +19,6 @@
 			"type": "string",
 			"defaultValue": "https://storagedatafactoryjash.dfs.core.windows.net/"
 		},
-		"ManTrigger_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/a2688eea-3379-4c1a-a78c-d522a44487ef/resourceGroups/Jaswanth/providers/Microsoft.Storage/storageAccounts/storagedatafactoryjash"
-		},
 		"managerTrigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a2688eea-3379-4c1a-a78c-d522a44487ef/resourceGroups/Jaswanth/providers/Microsoft.Storage/storageAccounts/storagedatafactoryjash"
@@ -59,6 +55,47 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('linkedserviceDL_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/managerTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('managerTrigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/selectedFilesTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 15,
+						"startTime": "2026-06-25T12:07:00",
+						"endTime": "2026-06-29T12:10:00",
+						"timeZone": "India Standard Time"
 					}
 				}
 			},
@@ -1025,66 +1062,6 @@
 				"[concat(variables('factoryId'), '/dataflows/TransformCSV')]",
 				"[concat(variables('factoryId'), '/datasets/param_source_csv')]",
 				"[concat(variables('factoryId'), '/datasets/reporting_sink')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ManTrigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pipelinemanager",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('ManTrigger_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipelinemanager')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/managerTrigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pipelinemanager",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('managerTrigger_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipelinemanager')]"
 			]
 		}
 	]

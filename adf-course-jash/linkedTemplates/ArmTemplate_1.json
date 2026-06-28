@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-course-jash"
+		},
+		"ManTrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/a2688eea-3379-4c1a-a78c-d522a44487ef/resourceGroups/Jaswanth/providers/Microsoft.Storage/storageAccounts/storagedatafactoryjash"
 		}
 	},
 	"variables": {
@@ -13,7 +17,62 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/selectedFilesTrigger')]",
+			"name": "[concat(parameters('factoryName'), '/prodpipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Executeonpipelinemanager",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pipelinemanager",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Executeononlyselectedfiles",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Executeonpipelinemanager",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "onlySelectedFiles",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ManTrigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -22,24 +81,25 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "onlySelectedFiles",
+							"referenceName": "prodpipeline",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
 					}
 				],
-				"type": "ScheduleTrigger",
+				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 15,
-						"startTime": "2026-06-25T12:07:00",
-						"endTime": "2026-06-25T12:10:00",
-						"timeZone": "India Standard Time"
-					}
+					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('ManTrigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/prodpipeline')]"
+			]
 		}
 	]
 }
