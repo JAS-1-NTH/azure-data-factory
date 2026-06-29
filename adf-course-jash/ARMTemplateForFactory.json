@@ -130,7 +130,7 @@
 						}
 					},
 					{
-						"name": "If Condition1",
+						"name": "If_new_rows",
 						"type": "IfCondition",
 						"dependsOn": [
 							{
@@ -143,7 +143,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@greater(activity('total_result').output.resultSet[0].rows[0].total_count, 0)",
+								"value": "@greater(activity('total_result').output.resultSets[0].rows[0].total_count, 0)",
 								"type": "Expression"
 							},
 							"ifTrueActivities": [
