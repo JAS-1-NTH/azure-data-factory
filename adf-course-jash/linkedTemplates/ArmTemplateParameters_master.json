@@ -32,6 +32,9 @@
 		"ls_datalake_properties_typeProperties_url": {
 			"value": "https://storagedatafactoryjash.dfs.core.windows.net/"
 		},
+		"ls_restapi_properties_typeProperties_url": {
+			"value": "https://pokeapi.co/api/v2/pokemon"
+		},
 		"ManTrigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/a2688eea-3379-4c1a-a78c-d522a44487ef/resourceGroups/Jaswanth/providers/Microsoft.Storage/storageAccounts/storagedatafactoryjash"
 		},
