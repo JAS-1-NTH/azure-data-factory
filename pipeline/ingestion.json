@@ -198,10 +198,15 @@
 							"typeProperties": {
 								"source": {
 									"type": "JsonSource",
-									"additionalColumns": {
-										"type": "Expression",
-										"value": "@activity('max_cdc').output.resultSets[0].rows[0].cdc_timestamp"
-									},
+									"additionalColumns": [
+										{
+											"name": "cdc_timestamp",
+											"value": {
+												"value": "@activity('max_cdc').output.resultSets[0].rows[0].cdc_timestamp",
+												"type": "Expression"
+											}
+										}
+									],
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
