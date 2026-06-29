@@ -11,11 +11,35 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'linkedserviceDL'"
 		},
+		"ls_database_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_database'"
+		},
+		"ls_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_datalake'"
+		},
 		"linked_git_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com"
 		},
 		"linkedserviceDL_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryjash.dfs.core.windows.net/"
+		},
+		"ls_database_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "df-pro-servers.database.windows.net"
+		},
+		"ls_database_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dfprodb"
+		},
+		"ls_database_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Mani"
+		},
+		"ls_datalake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storagedatafactoryjash.dfs.core.windows.net/"
 		},
@@ -57,11 +81,29 @@
 					"linkedserviceDL_accountKey": {
 						"value": "[parameters('linkedserviceDL_accountKey')]"
 					},
+					"ls_database_password": {
+						"value": "[parameters('ls_database_password')]"
+					},
+					"ls_datalake_accountKey": {
+						"value": "[parameters('ls_datalake_accountKey')]"
+					},
 					"linked_git_properties_typeProperties_url": {
 						"value": "[parameters('linked_git_properties_typeProperties_url')]"
 					},
 					"linkedserviceDL_properties_typeProperties_url": {
 						"value": "[parameters('linkedserviceDL_properties_typeProperties_url')]"
+					},
+					"ls_database_properties_typeProperties_server": {
+						"value": "[parameters('ls_database_properties_typeProperties_server')]"
+					},
+					"ls_database_properties_typeProperties_database": {
+						"value": "[parameters('ls_database_properties_typeProperties_database')]"
+					},
+					"ls_database_properties_typeProperties_userName": {
+						"value": "[parameters('ls_database_properties_typeProperties_userName')]"
+					},
+					"ls_datalake_properties_typeProperties_url": {
+						"value": "[parameters('ls_datalake_properties_typeProperties_url')]"
 					},
 					"managerTrigger_properties_typeProperties_scope": {
 						"value": "[parameters('managerTrigger_properties_typeProperties_scope')]"

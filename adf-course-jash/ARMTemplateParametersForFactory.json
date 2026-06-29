@@ -8,10 +8,28 @@
 		"linkedserviceDL_accountKey": {
 			"value": ""
 		},
+		"ls_database_password": {
+			"value": ""
+		},
+		"ls_datalake_accountKey": {
+			"value": ""
+		},
 		"linked_git_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
 		},
 		"linkedserviceDL_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryjash.dfs.core.windows.net/"
+		},
+		"ls_database_properties_typeProperties_server": {
+			"value": "df-pro-servers.database.windows.net"
+		},
+		"ls_database_properties_typeProperties_database": {
+			"value": "dfprodb"
+		},
+		"ls_database_properties_typeProperties_userName": {
+			"value": "Mani"
+		},
+		"ls_datalake_properties_typeProperties_url": {
 			"value": "https://storagedatafactoryjash.dfs.core.windows.net/"
 		},
 		"ManTrigger_properties_typeProperties_scope": {
