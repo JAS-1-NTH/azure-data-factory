@@ -131,7 +131,7 @@
 															"p_container": "sink",
 															"p_folder": "customers",
 															"p_file": {
-																"value": "@concat(item().name,'.csv')",
+																"value": "@item().name",
 																"type": "Expression"
 															}
 														}
@@ -210,7 +210,7 @@
 															"p_container": "sink",
 															"p_folder": "drivers",
 															"p_file": {
-																"value": "@concat(item().name,'.csv')",
+																"value": "@item().name",
 																"type": "Expression"
 															}
 														}
@@ -289,7 +289,7 @@
 															"p_container": "sink",
 															"p_folder": "trips",
 															"p_file": {
-																"value": "@concat(item().name,'.csv')",
+																"value": "@item().name",
 																"type": "Expression"
 															}
 														}
